@@ -19,10 +19,11 @@
         const root = ReactDOM.createRoot(container);
 
         function MyButton({ text, onClick, counter }) {
-            const myStyle = (text !== "Reset") ? {} : { margin: 20, display: 'block' };
+            const myStyle = (text !== 'Reset!') ? {} : { margin: 20, display: 'block' };
 
             return (
-                <button onClick={onClick} style={myStyle}>{text}</button>
+                <button onClick={onClick} style={myStyle}>
+                    {text}</button>
             )
         }
 
@@ -40,19 +41,19 @@
             }
 
             function decrement() {
-                setCounter(counter - 1);
+                setCounter(counter - 1)
             }
 
             function reset() {
-                setCounter(0);
+                setCounter(0)
             }
 
             return (
                 <>
-                    <MyButton text={'+'} onClick={increment} counter={counter} />
-                    <MyCounter counter={counter} />
                     <MyButton text={'-'} onClick={decrement} counter={counter} />
-                    <MyButton text={'Reset'} onClick={reset} counter={counter} />
+                    <MyCounter counter={counter} />
+                    <MyButton text={'+'} onClick={increment} counter={counter} />
+                    <MyButton text={'Reset!'} onClick={reset} counter={counter} />
                 </>
             )
         }
