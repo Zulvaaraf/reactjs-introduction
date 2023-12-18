@@ -1,15 +1,8 @@
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
-const element = (
-  <div
-    style={{
-      marginLeft: 200,
-      width: 200,
-      height: 200,
-      backgroundColor: 'blue',
-    }}
-  ></div>
-);
+const boxColor = 'blue';
+
+const element = <div className={boxColor}></div>;
 
 root.render(element);
