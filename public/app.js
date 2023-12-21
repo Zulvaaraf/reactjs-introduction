@@ -1,21 +1,28 @@
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
-function HomePage() {
-  const [click, setClick] = React.useState(false);
-  const [count, setCount] = React.useState(0);
-  React.useEffect(() => {
-    console.log(document.getElementById('judul'));
-  }, [count]);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", {
-    id: "judul"
-  }, "Hallo ini halaman utama"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setClick(true);
+function App() {
+  const namaRef = React.useRef(null);
+  function submitForm(event) {
+    event.preventDefault();
+    const nama = namaRef.current.value;
+    console.log('name : ', nama);
+  }
+  return /*#__PURE__*/React.createElement("form", {
+    onSubmit: submitForm
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", null, "Name : "), /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    name: "name",
+    style: {
+      margin: 20,
+      padding: 8
+    },
+    ref: namaRef
+  })), /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    style: {
+      padding: 8,
+      width: 100
     }
-  }, "klik aku dong"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => {
-      setCount(count + 1);
-    }
-  }, "Tambah"), "Nilai Saat Ini: ", count);
+  }, "Submit"));
 }
-root.render( /*#__PURE__*/React.createElement(HomePage, null));
+root.render( /*#__PURE__*/React.createElement(App, null));
