@@ -2,18 +2,25 @@ const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 function App() {
-  const namaRef = React.useRef(null);
+  const [nama, setNama] = React.useState('');
 
   function submitForm(event) {
     event.preventDefault();
-    const nama = namaRef.current.value;
-    console.log('name : ', nama);
+
+    console.log(`Nama :`, nama);
   }
   return (
     <form onSubmit={submitForm}>
       <div>
         <label>Name : </label>
-        <input type="text" name="name" style={{ margin: 20, padding: 8 }} ref={namaRef}></input>
+        <input
+          type="text"
+          name="name"
+          style={{ margin: 20, padding: 8 }}
+          onChange={function (event) {
+            setNama(event.target.value);
+          }}
+        ></input>
       </div>
       <button type="submit" style={{ padding: 8, width: 100 }}>
         Submit

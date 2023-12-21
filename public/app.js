@@ -1,11 +1,10 @@
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 function App() {
-  const namaRef = React.useRef(null);
+  const [nama, setNama] = React.useState('');
   function submitForm(event) {
     event.preventDefault();
-    const nama = namaRef.current.value;
-    console.log('name : ', nama);
+    console.log(`Nama :`, nama);
   }
   return /*#__PURE__*/React.createElement("form", {
     onSubmit: submitForm
@@ -16,7 +15,9 @@ function App() {
       margin: 20,
       padding: 8
     },
-    ref: namaRef
+    onChange: function (event) {
+      setNama(event.target.value);
+    }
   })), /*#__PURE__*/React.createElement("button", {
     type: "submit",
     style: {
