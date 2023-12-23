@@ -2,32 +2,121 @@ const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 function App() {
-  const [news, setNews] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [activity, setActivity] = React.useState('');
+  const [edit, setEdit] = React.useState({});
+  const [todos, setTodos] = React.useState([]);
+  const [message, setMessage] = React.useState('');
 
-  React.useEffect(() => {
-    async function getData() {
-      const request = await fetch('https://api.spaceflightnewsapi.net/v3/blogs');
+  function generateID() {
+    return +new Date();
+  }
 
-      const response = await request.json();
-      setNews(response);
-      setLoading(false);
+  function saveTodoHandler(event) {
+    event.preventDefault();
+
+    if (!activity) {
+      return setMessage('required field!!');
     }
-    getData();
-  }, []);
+
+    if (edit.id) {
+      const updatedTodo = {
+        ...edit,
+        activity,
+        done: false,
+      };
+
+      const editTodoIndex = todos.findIndex((todo) => {
+        return todo.id == edit.id;
+      });
+
+      const updatedTodos = [...todos];
+      updatedTodos[editTodoIndex] = updatedTodo;
+
+      setTodos(updatedTodos);
+
+      return cancelTodoHandler();
+    }
+
+    setTodos([
+      ...todos,
+      {
+        id: generateID(),
+        activity,
+        done: false,
+      },
+    ]);
+    setActivity('');
+    setMessage('');
+  }
+
+  function removeTodoHandler(todoId) {
+    const filteredTodos = todos.filter((todo) => {
+      return todo.id !== todoId;
+    });
+
+    setTodos(filteredTodos);
+
+    if (edit.id) cancelTodoHandler();
+  }
+
+  function editTodoHandler(todo) {
+    setActivity(todo.activity);
+    setEdit(todo);
+  }
+
+  function cancelTodoHandler() {
+    setEdit({});
+    setActivity('');
+  }
+
+  function doneTodoHandler(todo) {
+    const updatedTodo = {
+      ...todo,
+      done: todo.done ? false : true,
+    };
+
+    const editTodoIndex = todos.findIndex((currentTodo) => {
+      return currentTodo.id == todo.id;
+    });
+
+    const updatedTodos = [...todos];
+    updatedTodos[editTodoIndex] = updatedTodo;
+
+    setTodos(updatedTodos);
+  }
 
   return (
     <>
-      <h1>Data Fetch</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {news.map((item) => {
-            return <li key={item.id}>{item.title}</li>;
-          })}
-        </ul>
-      )}
+      <h1>SIMPLE TODO LIST</h1>
+      {message && <p style={{ color: 'red' }}>{message}</p>}
+      <form onSubmit={saveTodoHandler}>
+        <input
+          type="text"
+          placeholder="activity name"
+          value={activity}
+          onChange={function (event) {
+            setActivity(event.target.value);
+          }}
+        />
+        <button type="submit">{edit.id ? 'SAVE' : 'ADD'}</button>
+        {edit.id && <button onClick={cancelTodoHandler}>Cancel</button>}
+      </form>
+      <ul>
+        {todos.map((todo) => {
+          return (
+            <li key={todo.id}>
+              <input type="checkbox" checked={todo.done} onChange={doneTodoHandler.bind(this, todo)}></input>
+              {todo.activity} ({todo.done ? 'FINISHED' : 'UNFINISHED'})
+              <button onClick={editTodoHandler.bind(this, todo)} style={{ marginInline: 5 }}>
+                EDIT
+              </button>
+              <button onClick={removeTodoHandler.bind(this, todo.id)} style={{ marginInline: 5 }}>
+                DELETE
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 }
