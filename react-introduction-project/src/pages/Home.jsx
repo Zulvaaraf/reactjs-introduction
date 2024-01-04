@@ -1,8 +1,8 @@
 function Home() {
   return (
     <section>
-      <h1>Homepage</h1>
-      <p>Hallo semua, ini adalah websiteku. kamu bisa mendapatakan beberapa informasi mengenai profileku disini ya!</p>
+      <h1>Home</h1>
+      <p>Ini adalah website react pertama saya, kamu bisa melihat beberapa informasi mengenai saya</p>
     </section>
   );
 }

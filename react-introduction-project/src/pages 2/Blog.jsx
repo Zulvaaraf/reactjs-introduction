@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Blog() {
+export default function Blog() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useEffect(function () {
     async function getArticles() {
-      const request = await fetch('https:/api.spaceflightnewsapi.net/v3/blogs');
+      const request = await fetch('https://api.spaceflightnewsapi.net/v3/blogs');
       const response = await request.json();
 
       setArticles(response);
@@ -19,16 +19,15 @@ function Blog() {
   return (
     <section>
       <h1>Blog</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
+      {loading && <p>Loading...</p>}
+      {!loading && (
         <div>
           {articles.map((article) => {
             return (
               <article key={article.id}>
-                <h3>
+                <h2>
                   <Link to={`/blog/${article.id}`}>{article.title}</Link>
-                </h3>
+                </h2>
                 <p>{new Date(article.publishedAt).toLocaleDateString()}</p>
               </article>
             );
@@ -38,5 +37,3 @@ function Blog() {
     </section>
   );
 }
-
-export default Blog;

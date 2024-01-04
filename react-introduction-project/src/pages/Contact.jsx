@@ -2,12 +2,11 @@ function Contact() {
   return (
     <section>
       <h1>Contact</h1>
-      <p>kalian bisa hubungi saya di bawah ini: </p>
       <ul>
-        <li>Whatsapp: 08985175431</li>
-        <li>Email: zulvaaraf@gmail.com</li>
+        <li>whatsapp: 0983920313</li>
+        <li>Twitter: zulvaaraf</li>
         <li>Instagram: zulvaaraf</li>
-        <li>Twitter: zlvrf</li>
+        <li>Github: zulvaaraf</li>
       </ul>
     </section>
   );
