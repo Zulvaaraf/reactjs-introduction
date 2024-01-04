@@ -1,8 +1,8 @@
 function Profile() {
   return (
-    <section>
-      <h1>Profile</h1>
-      <p>Ini adalah halaman profile</p>
+    <section className="section">
+      <h1 className="section-title">Profile</h1>
+      <p className="section-description">Ini adalah halaman profile</p>
     </section>
   );
 }

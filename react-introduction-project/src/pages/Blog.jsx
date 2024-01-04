@@ -17,19 +17,19 @@ function Blog() {
   }, []);
 
   return (
-    <section>
-      <h1>Blog</h1>
+    <section className="section">
+      <h1 className="section-title">Blog</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className="articles">
           {articles.map((article) => {
             return (
-              <article key={article.id}>
-                <h3>
+              <article key={article.id} className="article">
+                <h3 className="article-title">
                   <Link to={`/blog/${article.id}`}>{article.title}</Link>
                 </h3>
-                <p>{new Date(article.publishedAt).toLocaleDateString()}</p>
+                <p className="article-time">{new Date(article.publishedAt).toLocaleDateString()}</p>
               </article>
             );
           })}
